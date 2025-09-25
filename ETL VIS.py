@@ -64,3 +64,25 @@ plt.suptitle('Pairplot of Height, Weight, BMI', y=1.02)
 plt.savefig(os.path.join(visuals_folder, 'pairplot.png'))
 plt.show()
 
+# 5. BMI Category Count Plot
+# -----------------------------
+# Define BMI categories
+def categorize_bmi(bmi):
+    if bmi < 18.5:
+        return 'Underweight'
+    elif 18.5 <= bmi < 25:
+        return 'Normal'
+    elif 25 <= bmi < 30:
+        return 'Overweight'
+    else:
+        return 'Obese'
+
+df['BMI_Category'] = df['BMI'].apply(categorize_bmi)
+
+plt.figure(figsize=(8,6))
+sns.countplot(x='BMI_Category', data=df, palette='Set2')
+plt.title('BMI Category Distribution')
+plt.xlabel('BMI Category')
+plt.ylabel('Count')
+plt.savefig(os.path.join(visuals_folder, 'bmi_category_distribution.png'))
+plt.show()
